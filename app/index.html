@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<title>Bitcoin Monitor</title>
+	<link rel="stylesheet" href="assets/css/custom.css" />
+	<script>
+		window.nodeRequire = require;
+		delete window.require;
+		delete window.exports;
+		delete window.module;
+		window.$ = window.jQuery = nodeRequire('jquery');
+		window.Tether = nodeRequire('tether');
+	</script>
+</head>
+
+<body>
+	<div class="container-fluid">
+		<div class="d-flex">
+			<button class="btn btn-primary d-flex align-self-center" id="spot-price-update-button">Get Spot Price</button>
+		</div>
+	</div>
+	<script>
+		nodeRequire('./assets/js/renderer');
+	</script>
+</body>
+
+</html>

@@ -1,0 +1,6 @@
+{
+	"currency": "CAD",
+	"refreshRate": "30s",
+	"alertHigh": "3500",
+	"alertLow": "2500"
+}
