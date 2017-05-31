@@ -6,24 +6,32 @@
 	<title>Bitcoin Monitor</title>
 	<link rel="stylesheet" href="assets/css/custom.css" />
 	<script>
+		// rename and delete stuff to allow for jquery
 		window.nodeRequire = require;
 		delete window.require;
 		delete window.exports;
 		delete window.module;
+		// jquery and tether (needed for bootstrap)
 		window.$ = window.jQuery = nodeRequire('jquery');
 		window.Tether = nodeRequire('tether');
 	</script>
 </head>
 
 <body>
-	<div class="container-fluid">
-		<div class="d-flex">
-			<button class="btn btn-primary d-flex align-self-center" id="spot-price-update-button">Get Spot Price</button>
+	<div class="container fill-height">
+		<div class="row fill-height">
+			<div class="col align-self-center text-center">
+				<button class="btn btn-primary" id="spot-price-update-button">Get Spot Price</button>
+			</div>
 		</div>
 	</div>
+</body>
+
+<footer>
 	<script>
+		// renderer JS to communicate with main process
 		nodeRequire('./assets/js/renderer');
 	</script>
-</body>
+</footer>
 
 </html>
