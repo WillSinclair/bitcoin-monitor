@@ -51,17 +51,14 @@ class CoinMonitor {
 			var data = JSON.parse(body);
 			var options = {
 				chart: {
+					backgroundColor: null,
 					type: 'line',
-					marginRight: 30,
-					marginBottom: 30,
 					reflow: true
-				},
-				title: {
-					text: 'BTC price'
 				},
 				xAxis: {
 					type: 'datetime'
 				},
+				yAxis: {},
 				tooltip: {
 					valueDecimals: 2
 				},
@@ -74,7 +71,10 @@ class CoinMonitor {
 				series: [{
 					name: 'BTC Price',
 					data: []
-				}]
+				}],
+				credits: {
+					enabled: false
+				}
 			};
 
 			this.chart = Highcharts.chart('mid-bar-highcharts-graph', options);

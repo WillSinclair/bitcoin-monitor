@@ -2,10 +2,13 @@ const $ = require('jquery');
 const remote = require('electron').remote;
 const CoinMonitor = require('./coin-monitor');
 const bootstrap = require('bootstrap');
-var monitor = new CoinMonitor();
+const monitor = new CoinMonitor();
 
 $(document).ready(function () {
-	var window = remote.getCurrentWindow();
+	var window = remote.getCurrentWindow().on('resize', function () {
+		var size = window.getContentSize();
+		monitor.chart.setSize(size[0] - 30, size[1] - 50, true);
+	});;
 
 
 	// minimize and close buttons
@@ -14,13 +17,6 @@ $(document).ready(function () {
 	});
 	document.getElementById('close-button').addEventListener('click', (e) => {
 		window.close();
-	});
-
-
-	// change chart size on window size change
-	window.on('resize', () => {
-		var size = window.getContentSize();
-		monitor.chart.setSize(size[0] - 20, size[1] - 20, true);
 	});
 
 	// dropdown currency selectors
@@ -45,6 +41,6 @@ $(document).ready(function () {
 		$("#highcharts-outer-container").show();
 		$("#mid-bar-highcharts-graph").show() //.css('visibility', 'visible');
 		var windowSize = (window.getContentSize());
-		monitor.chart.setSize(windowSize[0] - 20, windowSize[1] - 20, true);
+		monitor.chart.setSize(windowSize[0] - 30, windowSize[1] - 50, true);
 	});
 });
