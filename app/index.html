@@ -2,71 +2,79 @@
 <html>
 
 <head>
-  <meta charset="UTF-8">
-  <title>Bitcoin Monitor</title>
-  <link rel="stylesheet" href="assets/css/custom.css" />
-  <script>
-    // rename and delete stuff to allow for jquery
-    window.nodeRequire = require;
-    delete window.require;
-    delete window.exports;
-    delete window.module;
-    // jquery and tether (needed for bootstrap)
-    window.$ = window.jQuery = nodeRequire('jquery');
-    window.Tether = nodeRequire('tether');
-  </script>
+	<meta charset="UTF-8">
+	<title>Bitcoin Monitor</title>
+	<link rel="stylesheet" href="assets/css/custom.css" />
+	<script>
+		// rename and delete stuff to allow for jquery
+		window.nodeRequire = require;
+		delete window.require;
+		delete window.exports;
+		delete window.module;
+		// jquery and tether (needed for bootstrap)
+		window.$ = window.jQuery = nodeRequire('jquery');
+		window.Tether = nodeRequire('tether');
+	</script>
 </head>
 
 <body>
-  <div class="container main-window-container fill-height">
-    <div class="row top-bar align-items-start">
-      <div id="title-bar-btns">
-        <!--minimise/close buttons-->
-        <button id="minimize-button" type="button" class="btn btn-outline-warning btn-sm">-</button>
-        <button id="close-button" type="button" class="btn btn-outline-danger btn-sm">x</button>
-      </div>
-      <div class="col text-center monotext">
-        <div class="dropdown btn-group">
-          <button class="btn btn-outline-success dropdown-toggle" type="button" id="base-currency-display" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
-          <div id="base-currency-options" class="dropdown-menu" aria-labelledby="base-currency-display">
-            <a class="dropdown-item" href="#">BTC</a>
-            <a class="dropdown-item" href="#">ETH</a>
-          </div>
-        </div>
-        <i class="text-success fa fa-angle-right" aria-hidden="true"></i>
-        <div class="dropdown btn-group">
-          <button class="btn btn-outline-success dropdown-toggle" type="button" id="target-currency-display" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
-          <div id="target-currency-options" class="dropdown-menu" aria-labelledby="target-currency-display">
-            <a class="dropdown-item" href="#">USD</a>
-            <a class="dropdown-item" href="#">CAD</a>
-            <a class="dropdown-item" href="#">EUR</a>
-            <a class="dropdown-item" href="#">GBP</a>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="row mid-bar">
-      <div class="col align-self-center text-center">
-        <h2 class="monotext"><span id="base-currency-header"></span> Price</h2>
-        <h4 class="monotext" id="current-price-display"></h4>
-      </div>
-    </div>
-    <div class="row bottom-bar">
-      <div id="daily-volume-display" class="col align-self-end text-left">
-        memes
-      </div>
-      <div id="price-change-display" class="col align-self-end text-right">
-        maymays
-      </div>
-    </div>
-  </div>
+	<div class="container main-window-container fill-height">
+		<div class="row top-bar align-items-start">
+			<div id="title-bar-btns">
+				<!--minimise/close buttons-->
+				<button id="minimize-button" type="button" class="btn btn-outline-warning btn-sm">-</button>
+				<button id="close-button" type="button" class="btn btn-outline-danger btn-sm">x</button>
+			</div>
+			<div class="col text-center monotext">
+				<div class="dropdown btn-group">
+					<button class="btn btn-outline-success dropdown-toggle" type="button" id="base-currency-display" data-toggle="dropdown" aria-haspopup="true"
+					  aria-expanded="false"></button>
+					<div id="base-currency-options" class="dropdown-menu" aria-labelledby="base-currency-display">
+						<a class="dropdown-item" href="#">BTC</a>
+						<a class="dropdown-item" href="#">ETH</a>
+					</div>
+				</div>
+				<i class="text-success fa fa-angle-right" aria-hidden="true"></i>
+				<div class="dropdown btn-group">
+					<button class="btn btn-outline-success dropdown-toggle" type="button" id="target-currency-display" data-toggle="dropdown"
+					  aria-haspopup="true" aria-expanded="false"></button>
+					<div id="target-currency-options" class="dropdown-menu" aria-labelledby="target-currency-display">
+						<a class="dropdown-item" href="#">USD</a>
+						<a class="dropdown-item" href="#">CAD</a>
+						<a class="dropdown-item" href="#">EUR</a>
+						<a class="dropdown-item" href="#">GBP</a>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row mid-bar">
+			<div id="mid-bar-price-content" class="col align-self-center text-center">
+				<h2 class="monotext"><span id="base-currency-header"></span> Price</h2>
+				<h4 class="monotext" id="current-price-display"></h4>
+			</div>
+			<div id="highcharts-outer-container" class="col align-self-center text-center" style='display:none;'>
+				<div id="mid-bar-highcharts-graph"></div>
+			</div>
+		</div>
+		<div class="row bottom-bar">
+			<div id="daily-volume-display" class="col align-self-end text-left">
+				memes
+			</div>
+			<div id="price-chart-toggle" class="col align-self-end text-center">
+				<button class="btn btn-outline-secondary btn-sm" id="show-price-chart-btn">Show Price History</button>
+			</div>
+			<div id="price-change-display" class="col align-self-end text-right">
+				maymays
+			</div>
+		</div>
+	</div>
 </body>
 
 <footer>
-  <script>
-    // renderer JS to communicate with main process
-    nodeRequire('./assets/js/renderer');
-  </script>
+	<script>
+		// renderer JS to communicate with main process
+		nodeRequire('./assets/js/renderer');
+	</script>
 </footer>
 
 </html>
