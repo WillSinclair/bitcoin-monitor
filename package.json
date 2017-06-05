@@ -4,7 +4,7 @@
   "description": "simple bitcoin price watcher",
   "main": "main.js",
   "scripts": {
-    "test": "./node_modules/.bin/electron ."
+    "start": "./node_modules/.bin/electron ."
   },
   "author": "Will Sinclair",
   "license": "GPL-2.0",
