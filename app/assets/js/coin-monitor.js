@@ -52,13 +52,22 @@ class CoinMonitor {
 			var options = {
 				chart: {
 					backgroundColor: null,
+					spacingBottom: 25,
+					marginTop: 50,
 					type: 'line',
 					reflow: true
+				},
+				title: {
+					text: ''
 				},
 				xAxis: {
 					type: 'datetime'
 				},
-				yAxis: {},
+				yAxis: {
+					title: {
+						text: ''
+					}
+				},
 				tooltip: {
 					valueDecimals: 2
 				},
