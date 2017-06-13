@@ -6,6 +6,7 @@ const request = require('request');
 const $ = require('jquery');
 const fs = require('fs');
 const os = require('os');
+const moment = require('moment-timezone');
 const Highcharts = require('highcharts');
 require('highcharts/modules/exporting')(Highcharts);
 
@@ -35,16 +36,28 @@ class CoinMonitor {
 		}, (error, response, body) => {
 			if (error) console.log(error);
 			var data = JSON.parse(body).results.USD_CAD.val;
-			this.usd_cad = data;
+			this.usd_cad = Number(data);
 		});
 	}
 
 
 	getPriceHistory() {
-		request.post('https://cex.io/api/price_stats/BTC/USD', {
+		var convertBack = false; // store whether we have to convert back to CAD
+		var url = "https://cex.io/api/price_stats/" + this.settings.baseCurrency + "/";
+		if (this.settings.targetCurrency == "CAD") {
+			convertBack = true;
+			url += "USD";
+		} else {
+			url += this.settings.targetCurrency;
+		}
+		// guess the user's timezone and get the offset in minutes
+		var zone = moment.tz.zone(moment.tz.guess());
+		var timezoneOffset = zone.parse(Date.UTC());
+
+		request.post(url, {
 			form: {
 				"lastHours": 24,
-				"maxRespArrSize": 100
+				"maxRespArrSize": 101 // this makes the last tick 15 mins more current
 			}
 		}, (error, response, body) => {
 			if (error) console.log(error);
@@ -55,7 +68,16 @@ class CoinMonitor {
 					spacingBottom: 25,
 					marginTop: 50,
 					type: 'line',
-					reflow: true
+					reflow: true,
+					animation: false
+				},
+				plotOptions: {
+					series: {
+						animation: false,
+						marker: {
+							enabled: false
+						}
+					}
 				},
 				title: {
 					text: ''
@@ -69,7 +91,9 @@ class CoinMonitor {
 					}
 				},
 				tooltip: {
-					valueDecimals: 2
+					valueDecimals: 2,
+					borderWidth: 0,
+					borderRadius: 5
 				},
 				legend: {
 					enabled: false
@@ -78,18 +102,33 @@ class CoinMonitor {
 					enabled: false
 				},
 				series: [{
-					name: 'BTC Price',
-					data: []
+					name: this.settings.baseCurrency + ' Price',
+					data: [],
+					color: '#00bc8c'
 				}],
 				credits: {
 					enabled: false
 				}
 			};
 
+			// set the chart's timezone
+			Highcharts.setOptions({
+				global: {
+					timezoneOffset: timezoneOffset,
+					useUTC: false
+				}
+			});
+			// plot the data			
 			this.chart = Highcharts.chart('mid-bar-highcharts-graph', options);
 			for (var i = 0; i < data.length; i++) {
 				var item = data[i];
-				this.chart.series[0].addPoint([item.tmsp * 1000, Number(item.price)]);
+				// get the price
+				var price = Number(item.price);
+				if (convertBack) {
+					price *= this.usd_cad;
+				}
+				var time = Number(item.tmsp) * 1000;
+				this.chart.series[0].addPoint([time, price]);
 			}
 		});
 	}

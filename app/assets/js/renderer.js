@@ -7,7 +7,7 @@ const monitor = new CoinMonitor();
 $(document).ready(function () {
 	var window = remote.getCurrentWindow().on('resize', function () {
 		var size = window.getContentSize();
-		monitor.chart.setSize(size[0] - 30, size[1] - 50, true);
+		monitor.chart.setSize(size[0] - (size[0] * 0.1), size[1] - (size[1] * 0.1), true);
 	});;
 
 
@@ -37,10 +37,18 @@ $(document).ready(function () {
 
 	// chart toggle button
 	$("#show-price-chart-btn").on('click', () => {
-		$("#mid-bar-price-content").hide();
-		$("#highcharts-outer-container").show();
-		$("#mid-bar-highcharts-graph").show() //.css('visibility', 'visible');
-		var windowSize = (window.getContentSize());
-		monitor.chart.setSize(windowSize[0] - 30, windowSize[1] - 50, true);
+		if ($("#mid-bar-price-content").is(':visible')) {
+			var windowSize = (window.getContentSize());
+			monitor.chart.setSize(windowSize[0] - 30, windowSize[1] - 50, true);
+			$("#mid-bar-price-content").hide();
+			$("#highcharts-outer-container").show();
+			$("#mid-bar-highcharts-graph").show();
+			$(this).text("Show Spot Price");
+		} else {
+			$("#mid-bar-price-content").show();
+			$("#highcharts-outer-container").hide();
+			$("#mid-bar-highcharts-graph").hide();
+			$(this).text("Show Price History");
+		}
 	});
 });
