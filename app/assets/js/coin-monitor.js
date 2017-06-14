@@ -18,18 +18,26 @@ class CoinMonitor {
 	}
 
 	init() {
-		this.refreshSettings();
-		this.getUSDtoCAD();
+		// either import or use defaultm settings
+		this.getSettings();
+		// get the conversion rates that CEX.io doesn't provide
+		this.getConversionRates();
+		// get the spot price to display
 		this.getSpotPrice();
+		// get the 24hr price history for the chart
 		this.getPriceHistory();
 
+		// update the spot price (defaults to 5 sec)
 		setInterval(() => {
 			this.getSpotPrice();
 		}, this.settings.refreshrate);
 	}
 
 
-	getUSDtoCAD() {
+	/**
+	 * Gets the USD->CAD and the USD->GBP conversion rates
+	 */
+	getConversionRates() {
 		// CEX.io doesn't provide price data in CAD, so we have to convert manually
 		request({
 			url: 'http://free.currencyconverterapi.com/api/v3/convert?q=USD_CAD'
@@ -48,7 +56,9 @@ class CoinMonitor {
 		});
 	}
 
-
+	/**
+	 * Creates the Highcharts price graph
+	 */
 	getPriceHistory() {
 		var convertBackCAD = false; // store whether we have to convert back to CAD
 		var convertBackGBP = false; // also store the same for GBP
@@ -71,11 +81,12 @@ class CoinMonitor {
 		request.post(url, {
 			form: {
 				"lastHours": 24,
-				"maxRespArrSize": 101 // this makes the last tick 15 mins more current
+				"maxRespArrSize": 101
 			}
 		}, (error, response, body) => {
 			if (error) console.log(error);
 			var data = JSON.parse(body);
+			// chart options
 			var options = {
 				chart: {
 					backgroundColor: null,
@@ -130,7 +141,7 @@ class CoinMonitor {
 				}
 			};
 
-			// set the chart's timezone
+			// set the chart's time offset (timestamps come in UTC time)
 			Highcharts.setOptions({
 				global: {
 					timezoneOffset: timezoneOffset,
@@ -156,6 +167,9 @@ class CoinMonitor {
 		});
 	}
 
+	/**
+	 * Clears and reinitializes the price chart
+	 */
 	refreshPriceHistory() {
 		// show a loading animation
 		$("#mid-bar-highcharts-graph").hide();
@@ -202,6 +216,9 @@ class CoinMonitor {
 		});
 	}
 
+	/**
+	 * Gets the last sell price
+	 */
 	getSpotPrice() {
 		var convertBackCAD = false; // store whether or not we have to convert back to CAD
 		var convertBackGBP = false; // store whether or not we have to convert back to GBP
@@ -243,7 +260,11 @@ class CoinMonitor {
 			});
 	}
 
-	refreshSettings() {
+
+	/**
+	 * Gets the settings from $HOME/.crypto-monitor/config.json
+	 */
+	getSettings() {
 		// create the app's home folder if it doesn't exist
 		if (!fs.existsSync(this.settingsDir)) {
 			fs.mkdirSync(this.settingsDir);
@@ -267,10 +288,20 @@ class CoinMonitor {
 				encoding: 'utf8'
 			}, (err) => { /* eat the error */ });
 		}
-		this.setUiFromSettings();
+		// set the UI elements with the values from settings
+		// base currency
+		$("#base-currency-header").text(this.settings.baseCurrency);
+		$("#base-currency-display").text(this.settings.baseCurrency);
+		// target currency
+		$("#target-currency-display").text(this.settings.targetCurrency);
 	}
 
-	updateSetting(name, value, callback) {
+	/**
+	 * Updates a setting and writes it to the config file
+	 * @param {string} name 
+	 * @param {string} value 
+	 */
+	updateSetting(name, value) {
 		var tempSettings = this.settings;
 		tempSettings[name] = value;
 		this.settings = tempSettings;
@@ -280,6 +311,11 @@ class CoinMonitor {
 		}, (err) => { /* eat the error */ });
 	}
 
+	/**
+	 * [Updates UI elements to reflect settings changes]
+	 * @param {string} name 
+	 * @param {string} value 
+	 */
 	changeUiFromSetting(name, value) {
 		switch (name) {
 			case 'baseCurrency':
@@ -293,14 +329,6 @@ class CoinMonitor {
 				this.refreshPriceHistory();
 				break;
 		}
-	}
-
-	setUiFromSettings() {
-		// base currency
-		$("#base-currency-header").text(this.settings.baseCurrency);
-		$("#base-currency-display").text(this.settings.baseCurrency);
-		// target currency
-		$("#target-currency-display").text(this.settings.targetCurrency);
 	}
 }
 
