@@ -30,7 +30,7 @@ class CoinMonitor {
 
 
 	getUSDtoCAD() {
-		// cex.io doesn't provide proce data in CAD, so I have to convert
+		// CEX.io doesn't provide price data in CAD, so we have to convert manually
 		request({
 			url: 'http://free.currencyconverterapi.com/api/v3/convert?q=USD_CAD'
 		}, (error, response, body) => {
@@ -38,14 +38,28 @@ class CoinMonitor {
 			var data = JSON.parse(body).results.USD_CAD.val;
 			this.usd_cad = Number(data);
 		});
+		// CEX.io also doesn't perform ETH -> GBP, so we have to conver that as well
+		request({
+			url: 'http://free.currencyconverterapi.com/api/v3/convert?q=USD_GBP'
+		}, (error, response, body) => {
+			if (error) console.log(error);
+			var data = JSON.parse(body).results.USD_GBP.val;
+			this.usd_gbp = Number(data);
+		});
 	}
 
 
 	getPriceHistory() {
-		var convertBack = false; // store whether we have to convert back to CAD
+		var convertBackCAD = false; // store whether we have to convert back to CAD
+		var convertBackGBP = false; // also store the same for GBP
 		var url = "https://cex.io/api/price_stats/" + this.settings.baseCurrency + "/";
 		if (this.settings.targetCurrency == "CAD") {
-			convertBack = true;
+			// we have to convert CAD manually because CEX.io doesn't convert to CAD
+			convertBackCAD = true;
+			url += "USD";
+		} else if (this.settings.targetCurrency == "GBP" && this.settings.baseCurrency == "ETH") {
+			// CEX.io also doesn't convert ETH to GBP, so we have to do that manually as well
+			convertBackGBP = true;
 			url += "USD";
 		} else {
 			url += this.settings.targetCurrency;
@@ -83,14 +97,18 @@ class CoinMonitor {
 					text: ''
 				},
 				xAxis: {
-					type: 'datetime'
+					type: 'datetime',
+					lineColor: "#444",
+					tickColor: "#444"
 				},
 				yAxis: {
 					title: {
 						text: ''
-					}
+					},
+					gridLineColor: "#444",
 				},
 				tooltip: {
+					backgroundColor: "rgba(247,247,247,0.6)",
 					valueDecimals: 2,
 					borderWidth: 0,
 					borderRadius: 5,
@@ -125,8 +143,10 @@ class CoinMonitor {
 				var item = data[i];
 				// get the price
 				var price = Number(item.price);
-				if (convertBack) {
+				if (convertBackCAD) {
 					price *= this.usd_cad;
+				} else if (convertBackGBP) {
+					price *= this.usd_gbp;
 				}
 				var time = Number(item.tmsp) * 1000;
 				this.chart.series[0].addPoint([time, price]);
@@ -142,10 +162,14 @@ class CoinMonitor {
 		$("#chart-loader").show();
 		// empty the chart data
 		this.chart.series[0].setData([]);
-		var convertBack = false; // store whether we have to convert back to CAD
+		var convertBackCAD = false; // store whether we have to convert back to CAD
+		var convertBackGBP = false; // also store the same for GBP		
 		var url = "https://cex.io/api/price_stats/" + this.settings.baseCurrency + "/";
 		if (this.settings.targetCurrency == "CAD") {
-			convertBack = true;
+			convertBackCAD = true;
+			url += "USD";
+		} else if (this.settings.targetCurrency == "GBP" && this.settings.baseCurrency == "ETH") {
+			convertBackGBP = true;
 			url += "USD";
 		} else {
 			url += this.settings.targetCurrency;
@@ -164,8 +188,10 @@ class CoinMonitor {
 				var item = data[i];
 				// get the price
 				var price = Number(item.price);
-				if (convertBack) {
+				if (convertBackCAD) {
 					price *= this.usd_cad;
+				} else if (convertBackGBP) {
+					price *= this.usd_gbp;
 				}
 				var time = Number(item.tmsp) * 1000;
 				this.chart.series[0].addPoint([time, price]);
@@ -177,6 +203,8 @@ class CoinMonitor {
 	}
 
 	getSpotPrice() {
+		var convertBackCAD = false; // store whether or not we have to convert back to CAD
+		var convertBackGBP = false; // store whether or not we have to convert back to GBP
 		var symbol = "$";
 		if (this.settings.targetCurrency == "EUR") {
 			symbol = "€"
@@ -185,6 +213,10 @@ class CoinMonitor {
 		}
 		var url = "https://cex.io/api/ticker/" + this.settings.baseCurrency + "/";
 		if (this.settings.targetCurrency == "CAD") {
+			convertBackCAD = true;
+			url += "USD";
+		} else if (this.settings.targetCurrency == "GBP" && this.settings.baseCurrency == "ETH") {
+			convertBackGBP = true;
 			url += "USD";
 		} else {
 			url += this.settings.targetCurrency;
@@ -197,9 +229,12 @@ class CoinMonitor {
 				var data = JSON.parse(body);
 				var price = (Math.round(data.last * 100) / 100).toFixed(2);
 				var volume = (Math.round(data.volume * 100) / 100).toFixed(2);
-				if (this.settings.targetCurrency == "CAD") {
+				if (convertBackCAD) {
 					price = (Math.round(price * 100 * this.usd_cad) / 100).toFixed(2);
 					volume = (Math.round(volume * 100 * this.usd_cad) / 100).toFixed(2);
+				} else if (convertBackGBP) {
+					price = (Math.round(price * 100 * this.usd_gbp) / 100).toFixed(2);
+					volume = (Math.round(volume * 100 * this.usd_gbp) / 100).toFixed(2);
 				}
 				$("#current-price-loader").hide();
 				$("#current-price-display").show();
@@ -230,7 +265,7 @@ class CoinMonitor {
 			this.settings = defaultSettings;
 			fs.writeFile(this.settingsPath, JSON.stringify(defaultSettings), {
 				encoding: 'utf8'
-			});
+			}, (err) => { /* eat the error */ });
 		}
 		this.setUiFromSettings();
 	}
@@ -242,7 +277,7 @@ class CoinMonitor {
 		this.changeUiFromSetting(name, value);
 		fs.writeFile(this.settingsPath, JSON.stringify(tempSettings), {
 			encoding: 'utf8'
-		}, function (err) { /* literally do nothing*/ });
+		}, (err) => { /* eat the error */ });
 	}
 
 	changeUiFromSetting(name, value) {

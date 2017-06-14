@@ -25,7 +25,7 @@
 				<button id="minimize-button" type="button" class="btn btn-outline-warning btn-sm">-</button>
 				<button id="close-button" type="button" class="btn btn-outline-danger btn-sm">x</button>
 			</div>
-			<div class="col text-center monotext">
+			<div class="col text-center monotext" id="currency-dropdowns">
 				<div class="dropdown btn-group">
 					<button class="btn btn-outline-success dropdown-toggle" type="button" id="base-currency-display" data-toggle="dropdown" aria-haspopup="true"
 					  aria-expanded="false"></button>
@@ -49,7 +49,7 @@
 		</div>
 		<div class="row mid-bar">
 			<div id="mid-bar-price-content" class="col align-self-center text-center">
-				<h2 class="monotext"><span id="base-currency-header"></span> Price</h2>
+				<h2 class="monotext"><span id="base-currency-header"></span>&#160;Price</h2>
 				<h4 class="monotext" id="current-price-display" style="display:none;"></h4>
 				<div class="loader" id="current-price-loader"></div>
 			</div>
@@ -61,9 +61,27 @@
 		<div class="row bottom-bar">
 			<div id="daily-volume-display" class="col align-self-end text-left"></div>
 			<div id="price-chart-toggle" class="col align-self-end text-center">
-				<button class="btn btn-outline-secondary btn-sm" id="show-price-chart-btn">Show Price History</button>
+				<button class="btn btn-outline-primary btn-sm" id="show-price-chart-btn">Show Price History</button>
 			</div>
-			<div id="price-change-display" class="col align-self-end text-right"></div>
+			<div class="col align-self-end text-right" id="timespan-picker">
+				<div class="btn-group" data-toggle="buttons">
+					<label class="btn btn-sm btn-outline-primary active">
+						<input type="radio" name="options" id="option1" checked=""> 1H
+					</label>
+					<label class="btn btn-sm btn-outline-primary">
+						<input type="radio" name="options" id="option2"> 24H
+					</label>
+					<label class="btn btn-sm btn-outline-primary">
+						<input type="radio" name="options" id="option3"> 1W
+					</label>
+					<label class="btn btn-sm btn-outline-primary">
+						<input type="radio" name="options" id="option3"> 1M
+					</label>
+					<label class="btn btn-sm btn-outline-primary">
+						<input type="radio" name="options" id="option3"> 1Y
+					</label>
+				</div>
+			</div>
 		</div>
 	</div>
 </body>

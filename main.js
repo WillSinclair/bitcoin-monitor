@@ -17,7 +17,9 @@ const defaultSettings = {
 	title: 'Crypto Monitor',
 	backgroundColor: '#222',
 	width: 600,
-	height: 300,
+	height: 350,
+	minWidth: 520,
+	minHeight: 250,
 	frame: false,
 	webPreferences: {
 		nodeIntegrationInWorker: true

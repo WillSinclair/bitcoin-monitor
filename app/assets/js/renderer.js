@@ -1,14 +1,16 @@
 const $ = require('jquery');
 const remote = require('electron').remote;
+const clipboard = require('electron').clipboard;
 const CoinMonitor = require('./coin-monitor');
 const bootstrap = require('bootstrap');
 const monitor = new CoinMonitor();
 
 $(document).ready(function () {
-	var window = remote.getCurrentWindow().on('resize', function () {
+	var window = remote.getCurrentWindow();
+	window.on('resize', function () {
 		var size = window.getContentSize();
-		monitor.chart.setSize(size[0] - (size[0] * 0.1), size[1] - (size[1] * 0.1), true);
-	});;
+		monitor.chart.setSize(size[0] - 30, size[1] - 60, true);
+	});
 
 
 	// minimize and close buttons
@@ -19,8 +21,13 @@ $(document).ready(function () {
 		window.close();
 	});
 
+	// copy the price to clipboard when the user click on it
+	$("#current-price-display").on('click', function () {
+		clipboard.writeText($(this).text());
+	});
+
 	// dropdown currency selectors
-	$("#base-currency-options").find("a").on('click', function (e) {
+	$("#base-currency-options").find("a").on('click', function () {
 		$("#current-price-display").hide();
 		$("#current-price-loader").show();
 		var newCurrency = $(this).text();
@@ -36,7 +43,6 @@ $(document).ready(function () {
 		monitor.getSpotPrice();
 	});
 
-
 	// chart toggle button
 	$("#show-price-chart-btn").on('click', function () {
 		if ($("#mid-bar-price-content").is(':visible')) {
@@ -45,13 +51,13 @@ $(document).ready(function () {
 			$("#mid-bar-price-content").hide();
 			$("#highcharts-outer-container").show();
 			$("#mid-bar-highcharts-graph").show();
-			$("#show-price-chart-btn").text("Show Spot Price");
+			$("#show-price-chart-btn").text("Spot Price");
 			console.log($(this).text());
 		} else {
 			$("#mid-bar-price-content").show();
 			$("#highcharts-outer-container").hide();
 			$("#mid-bar-highcharts-graph").hide();
-			$("#show-price-chart-btn").text("Show Price History");
+			$("#show-price-chart-btn").text("Price Graph");
 		}
 	});
 });
