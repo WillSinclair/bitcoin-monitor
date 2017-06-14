@@ -50,21 +50,20 @@
 		<div class="row mid-bar">
 			<div id="mid-bar-price-content" class="col align-self-center text-center">
 				<h2 class="monotext"><span id="base-currency-header"></span> Price</h2>
-				<h4 class="monotext" id="current-price-display"></h4>
+				<h4 class="monotext" id="current-price-display" style="display:none;"></h4>
+				<div class="loader" id="current-price-loader"></div>
 			</div>
 			<div id="highcharts-outer-container" class="col align-self-center justify-content-center text-center" style='display:none;'>
-				<div id="mid-bar-highcharts-graph"></div>
+				<div id="mid-bar-highcharts-graph" style="display:none;"></div>
+				<div class="loader" id="chart-loader"></div>
 			</div>
 		</div>
 		<div class="row bottom-bar">
-			<div id="daily-volume-display" class="col align-self-end text-left">
-				memes
-			</div>
+			<div id="daily-volume-display" class="col align-self-end text-left"></div>
 			<div id="price-chart-toggle" class="col align-self-end text-center">
 				<button class="btn btn-outline-secondary btn-sm" id="show-price-chart-btn">Show Price History</button>
 			</div>
-			<div id="price-change-display" class="col align-self-end text-right">
-			</div>
+			<div id="price-change-display" class="col align-self-end text-right"></div>
 		</div>
 	</div>
 </body>

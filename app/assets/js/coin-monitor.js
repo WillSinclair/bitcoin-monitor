@@ -93,7 +93,8 @@ class CoinMonitor {
 				tooltip: {
 					valueDecimals: 2,
 					borderWidth: 0,
-					borderRadius: 5
+					borderRadius: 5,
+					hideDelay: 50
 				},
 				legend: {
 					enabled: false
@@ -118,7 +119,7 @@ class CoinMonitor {
 					useUTC: false
 				}
 			});
-			// plot the data			
+			// plot the data
 			this.chart = Highcharts.chart('mid-bar-highcharts-graph', options);
 			for (var i = 0; i < data.length; i++) {
 				var item = data[i];
@@ -130,6 +131,48 @@ class CoinMonitor {
 				var time = Number(item.tmsp) * 1000;
 				this.chart.series[0].addPoint([time, price]);
 			}
+			$("#chart-loader").hide();
+			$("#mid-bar-highcharts-graph").show();
+		});
+	}
+
+	refreshPriceHistory() {
+		// show a loading animation
+		$("#mid-bar-highcharts-graph").hide();
+		$("#chart-loader").show();
+		// empty the chart data
+		this.chart.series[0].setData([]);
+		var convertBack = false; // store whether we have to convert back to CAD
+		var url = "https://cex.io/api/price_stats/" + this.settings.baseCurrency + "/";
+		if (this.settings.targetCurrency == "CAD") {
+			convertBack = true;
+			url += "USD";
+		} else {
+			url += this.settings.targetCurrency;
+		}
+
+		request.post(url, {
+			form: {
+				"lastHours": 24,
+				"maxRespArrSize": 101 // this makes the last tick 15 mins more current
+			}
+		}, (error, response, body) => {
+			if (error) console.log(error);
+			var data = JSON.parse(body);
+			// plot the data			
+			for (var i = 0; i < data.length; i++) {
+				var item = data[i];
+				// get the price
+				var price = Number(item.price);
+				if (convertBack) {
+					price *= this.usd_cad;
+				}
+				var time = Number(item.tmsp) * 1000;
+				this.chart.series[0].addPoint([time, price]);
+			}
+			// show the chart
+			$("#chart-loader").hide();
+			$("#mid-bar-highcharts-graph").show();
 		});
 	}
 
@@ -158,6 +201,8 @@ class CoinMonitor {
 					price = (Math.round(price * 100 * this.usd_cad) / 100).toFixed(2);
 					volume = (Math.round(volume * 100 * this.usd_cad) / 100).toFixed(2);
 				}
+				$("#current-price-loader").hide();
+				$("#current-price-display").show();
 				$("#current-price-display").text(symbol + price + " " + this.settings.targetCurrency);
 				$("#daily-volume-display").text("Volume: " + symbol + volume);
 			});
@@ -205,9 +250,12 @@ class CoinMonitor {
 			case 'baseCurrency':
 				$("#base-currency-header").text(value);
 				$("#base-currency-display").text(value);
+				this.getSpotPrice();
+				this.refreshPriceHistory();
 				break;
 			case 'targetCurrency':
 				$("#target-currency-display").text(value);
+				this.refreshPriceHistory();
 				break;
 		}
 	}

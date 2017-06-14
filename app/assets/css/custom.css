@@ -10,32 +10,32 @@
 /* Custom theming */
 
 @font-face {
-  font-family: 'RobotoCondensed';
-  src: url('../fonts/RobotoCondensed-Regular.ttf') format('truetype');
-  font-weight: normal;
+	font-family: 'RobotoCondensed';
+	src: url('../fonts/RobotoCondensed-Regular.ttf') format('truetype');
+	font-weight: normal;
 }
 
 @font-face {
-  font-family: 'RobotoCondensed';
-  src: url('../fonts/RobotoCondensed-Light.ttf') format('truetype');
-  font-weight: lighter;
+	font-family: 'RobotoCondensed';
+	src: url('../fonts/RobotoCondensed-Light.ttf') format('truetype');
+	font-weight: lighter;
 }
 
 @font-face {
-  font-family: 'RobotoCondensed';
-  src: url('../fonts/RobotoCondensed-Bold.ttf') format('truetype');
-  font-weight: bold;
+	font-family: 'RobotoCondensed';
+	src: url('../fonts/RobotoCondensed-Bold.ttf') format('truetype');
+	font-weight: bold;
 }
 
 @font-face {
-  font-family: 'PTMono';
-  src: url('../fonts/PTM55FT.ttf') format('truetype');
+	font-family: 'PTMono';
+	src: url('../fonts/PTM55FT.ttf') format('truetype');
 }
 
 html,
 body {
-  height: 100%;
-  overflow: hidden;
+	height: 100%;
+	overflow: hidden;
 }
 
 h1,
@@ -48,8 +48,8 @@ p,
 div,
 button,
 a {
-  font-family: 'RobotoCondensed';
-  font-weight: normal;
+	font-family: 'RobotoCondensed';
+	font-weight: normal;
 }
 
 p,
@@ -60,87 +60,117 @@ a,
 .dropdown-menu,
 select,
 option {
-  font-family: 'RobotoCondensed';
-  font-weight: lighter;
-  font-size: 16px;
+	font-family: 'RobotoCondensed';
+	font-weight: lighter;
+	font-size: 16px;
 }
 
 .main-window-container {
-  margin: 0px;
-  width: 100%;
-  height: 100%;
-  padding-top: 10px;
-  padding-bottom: 10px;
-  padding-left: 15px;
-  padding-right: 15px;
+	margin: 0px;
+	width: 100%;
+	height: 100%;
+	padding-top: 10px;
+	padding-bottom: 10px;
+	padding-left: 15px;
+	padding-right: 15px;
 }
 
 #title-bar-btns {
-  -webkit-app-region: no-drag;
-  z-index: 1000;
-  position: fixed;
-  top: 7px;
-  right: 7px;
-  text-align: right;
+	-webkit-app-region: no-drag;
+	z-index: 1000;
+	position: fixed;
+	top: 7px;
+	right: 7px;
+	text-align: right;
 }
 
 #close-button,
 #minimize-button {
-  position: relative;
-  -webkit-app-region: no-drag;
-  line-height: 0;
-  padding: 0px;
-  width: 20px;
-  height: 20px;
-  z-index: 1001;
+	position: relative;
+	-webkit-app-region: no-drag;
+	line-height: 0;
+	padding: 0px;
+	width: 20px;
+	height: 20px;
+	z-index: 1001;
+}
+
+.dropdown.btn-group {
+	z-index: 100;
 }
 
 .btn:focus,
 .btn.focus {
-  outline: none;
-  box-shadow: none;
+	outline: none;
+	box-shadow: none;
 }
 
 .monotext {
-  font-family: 'PTMono';
+	font-family: 'PTMono';
 }
 
 button,
 a {
-  -webkit-app-region: no-drag;
+	-webkit-app-region: no-drag;
 }
 
 .top-bar {
-  padding-top: 15px;
-  height: 10%;
-  min-height: auto;
-  -webkit-app-region: drag;
-  -webkit-user-select: none;
-  user-select: none;
+	padding-top: 15px;
+	height: 10%;
+	min-height: auto;
+	-webkit-app-region: drag;
+	-webkit-user-select: none;
+	user-select: none;
 }
 
 .mid-bar {
-  height: 85%;
+	height: 80%;
 }
 
 .bottom-bar {
-  height: 10%;
-  padding-bottom: 10px
+	height: 10%;
+	margin-bottom: 10px;
 }
 
 .fill-height {
-  height: 100%;
-  min-height: auto;
+	height: 100%;
+	min-height: auto;
 }
 
 #mid-bar-highcharts-graph {
-  width: 100%;
-  height: 100%;
+	width: 100%;
+	height: 100%;
+}
+
+.loader {
+	display: inline-block;
+	border-top: 5px solid #00bc8c;
+	border-bottom: 5px solid #00bc8c;
+	border-right: 5px solid #555;
+	border-left: 5px solid #555;
+	border-radius: 80%;
+	width: 40px;
+	height: 40px;
+	animation: spin 2s linear infinite;
+}
+
+#chart-loader {
+	width: 60px;
+	height: 60px;
+}
+
+@keyframes spin {
+	0% {
+		transform: rotate(0deg);
+	}
+	100% {
+		transform: rotate(360deg);
+	}
 }
 
 
 /* Highcharts Theming */
 
 .highcharts-series {
-  fill: #00bc8c;
+	fill: #00bc8c;
 }
