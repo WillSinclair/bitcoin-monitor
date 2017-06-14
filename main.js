@@ -11,7 +11,7 @@ const os = require('os');
 const menu = new Menu();
 let win;
 
-const settingsDir = os.homedir() + "/.bitcoin-monitor";
+const settingsDir = os.homedir() + "/.crypto-monitor";
 const settingsPath = settingsDir + "/window-config.json";
 const defaultSettings = {
 	title: 'Crypto Monitor',

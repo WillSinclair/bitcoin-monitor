@@ -12,7 +12,7 @@ require('highcharts/modules/exporting')(Highcharts);
 
 class CoinMonitor {
 	constructor() {
-		this.settingsDir = os.homedir() + "/.bitcoin-monitor";
+		this.settingsDir = os.homedir() + "/.crypto-monitor";
 		this.settingsPath = this.settingsDir + "/config.json";
 		this.init();
 	}

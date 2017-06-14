@@ -1,5 +1,5 @@
-# bitcoin-monitor
-A simple Bitcoin price watcher
+# crypto-monitor
+A simple Bitcoin & Ethereum price watcher
 
 ## Installation
 - Make sure you have [npm](https://docs.npmjs.com/getting-started/installing-node) installed.

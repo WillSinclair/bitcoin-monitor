@@ -1,23 +1,22 @@
 {
-  "name": "bitcoin-monitor",
-  "version": "0.1.0",
-  "description": "simple bitcoin price watcher",
-  "main": "main.js",
-  "scripts": {
-    "start": "./node_modules/.bin/electron ."
-  },
-  "author": "Will Sinclair",
-  "license": "GPL-2.0",
-  "devDependencies": {
-    "electron": "^1.6.10"
-  },
-  "dependencies": {
-    "bootstrap": "^4.0.0-alpha.6",
-    "child_process": "^1.0.2",
-    "highcharts": "^5.0.12",
-    "jquery": "^3.2.1",
-    "moment-timezone": "^0.5.13",
-    "request": "^2.81.0",
-    "tether": "^1.4.0"
-  }
+	"name": "crypto-monitor",
+	"version": "0.1.0",
+	"description": "simple bitcoin & ethereum price watcher",
+	"main": "main.js",
+	"scripts": {
+		"start": "./node_modules/.bin/electron ."
+	},
+	"author": "Will Sinclair",
+	"license": "GPL-2.0",
+	"devDependencies": {
+		"electron": "^1.6.10"
+	},
+	"dependencies": {
+		"bootstrap": "^4.0.0-alpha.6",
+		"highcharts": "^5.0.12",
+		"jquery": "^3.2.1",
+		"moment-timezone": "^0.5.13",
+		"request": "^2.81.0",
+		"tether": "^1.4.0"
+	}
 }
