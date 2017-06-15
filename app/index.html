@@ -64,21 +64,21 @@
 				<button class="btn btn-outline-primary btn-sm" id="show-price-chart-btn">Show Price History</button>
 			</div>
 			<div class="col align-self-end text-right" id="timespan-picker">
-				<div class="btn-group" data-toggle="buttons">
-					<label class="btn btn-sm btn-outline-primary active">
-						<input type="radio" name="options" id="option1" checked=""> 1H
+				<div class="btn-group" id="timespan-btns" data-toggle="buttons" style="display:none;">
+					<label class="btn btn-sm btn-outline-primary timespan-option" name="hour">
+						<input type="radio"> 1H</input>
 					</label>
-					<label class="btn btn-sm btn-outline-primary">
-						<input type="radio" name="options" id="option2"> 24H
+					<label class="btn btn-sm btn-outline-primary timespan-option active" name="day">
+						<input type="radio" checked> 24H</input>
 					</label>
-					<label class="btn btn-sm btn-outline-primary">
-						<input type="radio" name="options" id="option3"> 1W
+					<label class="btn btn-sm btn-outline-primary timespan-option" name="week">
+						<input type="radio"> 1W</input>
 					</label>
-					<label class="btn btn-sm btn-outline-primary">
-						<input type="radio" name="options" id="option3"> 1M
+					<label class="btn btn-sm btn-outline-primary timespan-option" name="month">
+						<input type="radio"> 1M</input>
 					</label>
-					<label class="btn btn-sm btn-outline-primary">
-						<input type="radio" name="options" id="option3"> 1Y
+					<label class="btn btn-sm btn-outline-primary timespan-option" name="year">
+						<input type="radio"> 1Y</input>
 					</label>
 				</div>
 			</div>

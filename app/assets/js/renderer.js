@@ -14,10 +14,10 @@ $(document).ready(function () {
 
 
 	// minimize and close buttons
-	document.getElementById('minimize-button').addEventListener('click', (e) => {
+	document.getElementById('minimize-button').addEventListener('click', () => {
 		window.minimize();
 	});
-	document.getElementById('close-button').addEventListener('click', (e) => {
+	document.getElementById('close-button').addEventListener('click', () => {
 		window.close();
 	});
 
@@ -43,6 +43,11 @@ $(document).ready(function () {
 		monitor.getSpotPrice();
 	});
 
+	$(".timespan-option").on('click', (e) => {
+		var unit = $(e.target).attr("name");
+		console.log(unit);
+	});
+
 	// chart toggle button
 	$("#show-price-chart-btn").on('click', function () {
 		if ($("#mid-bar-price-content").is(':visible')) {
@@ -52,12 +57,14 @@ $(document).ready(function () {
 			$("#highcharts-outer-container").show();
 			$("#mid-bar-highcharts-graph").show();
 			$("#show-price-chart-btn").text("Spot Price");
+			$("#timespan-btns").show();
 			console.log($(this).text());
 		} else {
 			$("#mid-bar-price-content").show();
 			$("#highcharts-outer-container").hide();
 			$("#mid-bar-highcharts-graph").hide();
 			$("#show-price-chart-btn").text("Price Graph");
+			$("#timespan-btns").hide();
 		}
 	});
 });

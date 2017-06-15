@@ -80,7 +80,7 @@ class CoinMonitor {
 
 		request.post(url, {
 			form: {
-				"lastHours": 24,
+				"lastHours": this.settings.numHours,
 				"maxRespArrSize": 101
 			}
 		}, (error, response, body) => {
@@ -281,7 +281,8 @@ class CoinMonitor {
 				baseCurrency: "BTC",
 				targetCurrency: "USD",
 				symbol: "$",
-				refreshrate: "5000"
+				refreshrate: 5000,
+				numHours: 24
 			};
 			this.settings = defaultSettings;
 			fs.writeFile(this.settingsPath, JSON.stringify(defaultSettings), {
