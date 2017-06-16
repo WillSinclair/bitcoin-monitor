@@ -63,6 +63,11 @@ $(document).ready(function () {
 		monitor.updateSetting("numHours", hours);
 	});
 
+	// settings button
+	$("#settings-button").on('click', function () {
+
+	})
+
 	// chart toggle button
 	$("#show-price-chart-btn").on('click', function () {
 		if ($("#mid-bar-price-content").is(':visible')) {

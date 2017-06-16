@@ -86,7 +86,8 @@ option,
 }
 
 #close-button,
-#minimize-button {
+#minimize-button,
+#settings-button {
   position: relative;
   -webkit-app-region: no-drag;
   line-height: 0;
@@ -94,6 +95,10 @@ option,
   width: 20px;
   height: 20px;
   z-index: 1001;
+}
+
+#settings-button {
+  border: none;
 }
 
 .dropdown.btn-group {

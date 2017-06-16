@@ -21,6 +21,8 @@
 	<div class="container main-window-container fill-height">
 		<div class="row top-bar align-items-start">
 			<div id="title-bar-btns">
+				<!-- settings button -->
+				<!--<button id="settings-button" type="button" class="btn btn-outline-secondary btn-sm" data-toggle="modal" data-target="#settings-modal"><i class="fa fa-cog text-muted"></i></button>-->
 				<!--minimise/close buttons-->
 				<button id="minimize-button" type="button" class="btn btn-outline-warning btn-sm">-</button>
 				<button id="close-button" type="button" class="btn btn-outline-danger btn-sm">x</button>
@@ -77,6 +79,18 @@
 					<label class="btn btn-sm btn-outline-primary timespan-option" name="month">
 						<input type="radio"> 1M</input>
 					</label>
+				</div>
+			</div>
+		</div>
+		<div class="modal fade" id="settings-modal" tabindex="-1" role="dialog" aria-labelledby="settings-button" aria-hidden="true">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-body">
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          		<span aria-hidden="true">&times;</span>
+        		</button>
+						<p>Settings go here</p>
+					</div>
 				</div>
 			</div>
 		</div>
