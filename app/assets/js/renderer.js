@@ -45,7 +45,22 @@ $(document).ready(function () {
 
 	$(".timespan-option").on('click', (e) => {
 		var unit = $(e.target).attr("name");
-		console.log(unit);
+		var hours;
+		switch (unit) {
+			case "hour":
+				hours = 1;
+				break;
+			case "day":
+				hours = 24;
+				break;
+			case "week":
+				hours = 168;
+				break;
+			case "month":
+				hours = 744;
+				break;
+		}
+		monitor.updateSetting("numHours", hours);
 	});
 
 	// chart toggle button

@@ -191,7 +191,7 @@ class CoinMonitor {
 
 		request.post(url, {
 			form: {
-				"lastHours": 24,
+				"lastHours": this.settings.numHours,
 				"maxRespArrSize": 101 // this makes the last tick 15 mins more current
 			}
 		}, (error, response, body) => {
@@ -327,6 +327,9 @@ class CoinMonitor {
 				break;
 			case 'targetCurrency':
 				$("#target-currency-display").text(value);
+				this.refreshPriceHistory();
+				break;
+			case 'numHours':
 				this.refreshPriceHistory();
 				break;
 		}
