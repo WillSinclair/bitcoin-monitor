@@ -1,15 +1,17 @@
 {
+	"productName": "Crypto Monitor",
 	"name": "crypto-monitor",
 	"version": "0.1.0",
 	"description": "simple bitcoin & ethereum price watcher",
 	"main": "main.js",
 	"scripts": {
-		"start": "./node_modules/.bin/electron ."
+		"start": "./node_modules/.bin/electron .",
+		"buildwin": "electron-packager . --overwrite"
 	},
 	"author": "Will Sinclair",
 	"license": "GPL-2.0",
 	"devDependencies": {
-		"electron": "^1.6.10"
+		"electron": "^1.4.15"
 	},
 	"dependencies": {
 		"bootstrap": "^4.0.0-alpha.6",
