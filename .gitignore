@@ -63,4 +63,4 @@ typings/
 
 Crypto Monitor-win32-x64/
 
-*unpacked/
+dist/
