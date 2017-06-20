@@ -101,6 +101,13 @@ option,
   border: none;
 }
 
+#current-info-display {
+  font-size: 14px;
+  position: fixed;
+  top: 10px;
+  left: 10px;
+}
+
 .dropdown.btn-group {
   z-index: 100;
 }

@@ -175,6 +175,7 @@ class CoinMonitor {
 		$("#mid-bar-highcharts-graph").hide();
 		$("#chart-loader").show();
 		// empty the chart data
+		this.chart.series[0].name = this.settings.baseCurrency + ' Price';
 		this.chart.series[0].setData([]);
 		var convertBackCAD = false; // store whether we have to convert back to CAD
 		var convertBackGBP = false; // also store the same for GBP		
@@ -244,6 +245,8 @@ class CoinMonitor {
 			(error, response, body) => {
 				if (error) console.log(error);
 				var data = JSON.parse(body);
+				console.log(data);
+
 				var price = (Math.round(data.last * 100) / 100).toFixed(2);
 				var volume = (Math.round(data.volume * 100) / 100).toFixed(2);
 				if (convertBackCAD) {
@@ -257,6 +260,8 @@ class CoinMonitor {
 				$("#current-price-display").show();
 				$("#current-price-display").text(symbol + price + " " + this.settings.targetCurrency);
 				$("#daily-volume-display").text("Volume: " + symbol + volume);
+				$("#daily-high").text(data.high);
+				$("#daily-low").text(data.low);
 			});
 	}
 
