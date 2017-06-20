@@ -34,7 +34,7 @@
 			</div>
 			<div id="title-bar-btns">
 				<!-- settings button -->
-				<!--<button id="settings-button" type="button" class="btn btn-outline-secondary btn-sm" data-toggle="modal" data-target="#settings-modal"><i class="fa fa-cog text-muted"></i></button>-->
+				<button id="settings-button" type="button" class="btn btn-outline-secondary btn-sm" data-toggle="modal" data-target="#settings-modal"><i class="fa fa-bell"></i></button>
 				<!--minimise/close buttons-->
 				<button id="minimize-button" type="button" class="btn btn-outline-warning btn-sm">-</button>
 				<button id="close-button" type="button" class="btn btn-outline-danger btn-sm">x</button>
@@ -97,11 +97,17 @@
 		<div class="modal fade" id="settings-modal" tabindex="-1" role="dialog" aria-labelledby="settings-button" aria-hidden="true">
 			<div class="modal-dialog" role="document">
 				<div class="modal-content">
-					<div class="modal-body">
+					<div class="modal-header">
+						<h5 class="modal-title">Notifications</h5>
+						<button class="btn btn-outline-info" type="button" style="position:absolute;right:50px;top:10px;" id="new-notification-btn">New</button>
 						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
           		<span aria-hidden="true">&times;</span>
         		</button>
-						<p>Settings go here</p>
+					</div>
+					<div class="modal-body">
+						<div id="notifications-area">
+							<p id="notifications-area-placeholder">No notifications yet.</p>
+						</div>
 					</div>
 				</div>
 			</div>
