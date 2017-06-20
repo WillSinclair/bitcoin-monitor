@@ -1,24 +1,29 @@
 {
-	"productName": "Crypto Monitor",
-	"name": "crypto-monitor",
-	"version": "0.1.0",
-	"description": "simple bitcoin & ethereum price watcher",
-	"main": "main.js",
-	"scripts": {
-		"start": "./node_modules/.bin/electron .",
-		"buildwin": "electron-packager . --overwrite"
-	},
-	"author": "Will Sinclair",
-	"license": "GPL-2.0",
-	"devDependencies": {
-		"electron": "^1.4.15"
-	},
-	"dependencies": {
-		"bootstrap": "^4.0.0-alpha.6",
-		"highcharts": "^5.0.12",
-		"jquery": "^3.2.1",
-		"moment-timezone": "^0.5.13",
-		"request": "^2.81.0",
-		"tether": "^1.4.0"
-	}
+  "productName": "Crypto Monitor",
+  "name": "crypto-monitor",
+  "version": "0.1.0",
+  "description": "simple bitcoin & ethereum price watcher",
+  "main": "main.js",
+  "scripts": {
+    "start": "./node_modules/.bin/electron .",
+    "pack": "build --dir",
+    "dist": "build"
+  },
+  "author": "Will Sinclair",
+  "license": "GPL-2.0",
+  "devDependencies": {
+    "electron": "^1.4.15",
+    "electron-builder": "^19.5.1"
+  },
+  "build": {
+    "appId": "crypto.monitor"
+  },
+  "dependencies": {
+    "bootstrap": "^4.0.0-alpha.6",
+    "highcharts": "^5.0.12",
+    "jquery": "^3.2.1",
+    "moment-timezone": "^0.5.13",
+    "request": "^2.81.0",
+    "tether": "^1.4.0"
+  }
 }
