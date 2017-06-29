@@ -63,44 +63,44 @@ $(document).ready(function () {
 	});
 
 	// notification generation
-	$("#new-notification-btn").on('click', function () {
-		var newNotification = document.createElement("div");
-		newNotification.className = "row justify-content-center";
-		newNotification.innerHTML = `
-		<div class="col col-2">
-			<button class="btn btn-outline-success dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">BTC</button>
-			<div class="dropdown-menu">
-				<a class="dropdown-item" href="#">BTC</a>
-				<a class="dropdown-item" href="#">ETH</a>
-			</div>
-		</div>
-		<div class="col col-10">
-			<div class="input-group">
-				<div class="input-group-addon">$</div>
-				<input type="text" class="form-control" id="exampleInputAmount" placeholder="Amount">
-				<div class="input-group-addon btn-group">
-					<button class="btn btn-sm btn-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">BTC</button>
-					<div class="dropdown-menu">
-						<a class="dropdown-item" href="#">USD</a>
-						<a class="dropdown-item" href="#">CAD</a>
-						<a class="dropdown-item" href="#">EUR</a>
-						<a class="dropdown-item" href="#">GBP</a>
-					</div>
-				</div>
-				<button type="button" class="close notification-delete-btn">
-					<span aria-hidden="true">&times;</span>
-				</button>
-			</div>
-		</div>`;
-		$("#notifications-area").append(newNotification);
-		$("#notifications-area-placeholder").hide();
-		$(".notification-delete-btn").on('click', function () {
-			$(this).parent().parent().parent().remove();
-			if ($("#notifications-area div").length == 0) {
-				$("#notifications-area-placeholder").show();
-			}
-		});
-	});
+	// $("#new-notification-btn").on('click', function () {
+	// 	var newNotification = document.createElement("div");
+	// 	newNotification.className = "row justify-content-center";
+	// 	newNotification.innerHTML = `
+	// 	<div class="col col-2">
+	// 		<button class="btn btn-outline-success dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">BTC</button>
+	// 		<div class="dropdown-menu">
+	// 			<a class="dropdown-item" href="#">BTC</a>
+	// 			<a class="dropdown-item" href="#">ETH</a>
+	// 		</div>
+	// 	</div>
+	// 	<div class="col col-10">
+	// 		<div class="input-group">
+	// 			<div class="input-group-addon">$</div>
+	// 			<input type="text" class="form-control" id="exampleInputAmount" placeholder="Amount">
+	// 			<div class="input-group-addon btn-group">
+	// 				<button class="btn btn-sm btn-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">BTC</button>
+	// 				<div class="dropdown-menu">
+	// 					<a class="dropdown-item" href="#">USD</a>
+	// 					<a class="dropdown-item" href="#">CAD</a>
+	// 					<a class="dropdown-item" href="#">EUR</a>
+	// 					<a class="dropdown-item" href="#">GBP</a>
+	// 				</div>
+	// 			</div>
+	// 			<button type="button" class="close notification-delete-btn">
+	// 				<span aria-hidden="true">&times;</span>
+	// 			</button>
+	// 		</div>
+	// 	</div>`;
+	// 	$("#notifications-area").append(newNotification);
+	// 	$("#notifications-area-placeholder").hide();
+	// 	$(".notification-delete-btn").on('click', function () {
+	// 		$(this).parent().parent().parent().remove();
+	// 		if ($("#notifications-area div").length == 0) {
+	// 			$("#notifications-area-placeholder").show();
+	// 		}
+	// 	});
+	// });
 
 	// chart toggle button
 	$("#show-price-chart-btn").on('click', function () {
