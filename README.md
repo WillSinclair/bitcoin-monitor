@@ -8,4 +8,4 @@ A simple Bitcoin & Ethereum price watcher
 - Run `npm start` and enjoy!
 
 ## Project Status
-- Compiled executables will be coming soon. I just need to polish the app up a bit.
+- Alpha release for windows is out. More prebuilds coming soon

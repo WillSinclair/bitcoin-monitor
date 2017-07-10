@@ -61,6 +61,8 @@ typings/
 
 .config/
 
-Crypto Monitor-win32-x64/
-
+# builds
 dist/
+Crypto Monitor-win32-x64/
+crypto-monitor-*/
+Crypto Monitor-*/
